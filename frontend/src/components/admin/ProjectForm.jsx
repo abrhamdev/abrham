@@ -38,7 +38,7 @@ const ProjectForm = ({ onClose, editProject = null }) => {
   
   try {
     const response = await axios[editProject ? 'put' : 'post'](
-      `${API_URL}/project/${editProject ? editProject._id : 'upload'}`,
+      `${API_URL}/project/${editProject ? `update/${editProject._id}` : 'upload'}`,
       formData,
       {
       headers: {

@@ -10,7 +10,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
             className="mb-8"
           >
             <div className="relative w-48 h-48 mx-auto mb-8">
@@ -25,7 +25,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-600 to-purple-600 dark:from-primary-400 dark:to-purple-400 text-transparent bg-clip-text">
               Hi, I'm Abrham
@@ -35,7 +35,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
               A passionate developer creating elegant digital experiences

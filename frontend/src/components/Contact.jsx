@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import axios from 'axios';
+import { API_URL } from '../../apiurl';
+import { toast } from 'react-toastify';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,10 +13,18 @@ const Contact = () => {
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    // Add form submission logic here
-    console.log('Form submitted:', formData);
+     try {
+    const response = await axios.post(
+      `${API_URL}/message/send`,
+      formData,
+     );
+    toast.success(response.data.message);
+    setFormData({name:'',email:'',message:''});
+  } catch (error) {
+    toast.error(error.response?.data?.message || 'Message Not Sent');
+  }
   };
 
   const handleChange = (e) => {
@@ -55,21 +67,21 @@ const Contact = () => {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-4">
-                  <Mail className="w-6 h-6 text-primary-600 dark:text-primary-400 mt-1" />
+                  <Mail className="w-6 h-6 text-primary-600 dark:text-purple-700 mt-1" />
                   <div>
                     <h4 className="font-medium text-gray-900 dark:text-white">Email</h4>
                     <p className="text-gray-600 dark:text-gray-300">abrhamabebe564@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <Phone className="w-6 h-6 text-primary-600 dark:text-primary-400 mt-1" />
+                  <Phone className="w-6 h-6 text-primary-600 dark:text-purple-700 mt-1" />
                   <div>
                     <h4 className="font-medium text-gray-900 dark:text-white">Phone</h4>
                     <p className="text-gray-600 dark:text-gray-300">+251 948910520</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
-                  <MapPin className="w-6 h-6 text-primary-600 dark:text-primary-400 mt-1" />
+                  <MapPin className="w-6 h-6 text-primary-600 dark:text-purple-700 mt-1" />
                   <div>
                     <h4 className="font-medium text-gray-900 dark:text-white">Location</h4>
                     <p className="text-gray-600 dark:text-gray-300">Addis Ababa, Ethiopia</p>

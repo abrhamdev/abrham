@@ -7,7 +7,7 @@ dotenv.config();
 
 const KEYFILEPATH = process.env.KEYFILEPATH; 
 const SCOPES = process.env.SCOPES;
-const FOLDER_ID =process.env.FOLDER_ID; // ID of your `cover_images` folder
+const FOLDER_ID =process.env.FOLDER_ID; 
 
 const auth = new google.auth.GoogleAuth({
   keyFile: KEYFILEPATH,

@@ -56,14 +56,14 @@ const Projects = () => {
               className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden"
             >
               <div
-                className="h-48 bg-gray-200 dark:bg-gray-700 cursor-pointer"
+                className="h-60 bg-gray-200 dark:bg-gray-700 cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
                 
                 <img
                   src={project.imageUrl}
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full "
                 />
               </div>
               <div className="p-6">
@@ -128,7 +128,7 @@ const Projects = () => {
               <img
                 src={selectedProject.imageUrl}
                 alt={selectedProject.title}
-                className="w-full h-64 object-cover"
+                className="w-full h-80 "
               />
               <div className="p-6">
                 <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">

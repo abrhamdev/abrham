@@ -60,3 +60,36 @@ export const deleteProject=async(req,res)=>{
     res.status(500).json({ message: 'Failed to delete project' });
   }
 }
+
+export const updateProject=async(req,res)=>{
+  
+     try {
+    const {
+      title,
+      description,
+      technologies,
+      liveUrl,
+      githubUrl,
+      featured,
+    } = req.body;
+   console.log(title);
+    const driveImageUrl = await uploadToDrive(req.file);
+
+    const newProject = new Project({
+      title,
+      description,
+      technologies: technologies.split(',').map(t => t.trim()),
+      liveUrl,
+      githubUrl,
+      featured: featured === 'true',
+      imageUrl: driveImageUrl,
+    });
+    
+
+    //await newProject.save();
+    return res.status(201).json({ message: 'Project uploaded successfully' });
+    }catch(error){
+      console.log(error);
+      return res.status(400).json({message:'Server error while uploading project'});
+    }
+}
