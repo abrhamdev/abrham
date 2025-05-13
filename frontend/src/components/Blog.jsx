@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 
 const blogPosts = [
@@ -19,7 +20,6 @@ const blogPosts = [
     category: "TypeScript",
     image: "https://picsum.photos/seed/typescript/400/250"
   },
-  // Add more blog posts as needed
 ];
 
 const Blog = () => {

@@ -19,7 +19,6 @@ const Home = ({ onTriggerAdmin }) => {
         <Projects />
         <Experience />
         <Contact />
-        <Blog />
       </main>
       <Footer />
     </div>

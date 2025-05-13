@@ -4,8 +4,10 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {API_URL} from '../../../apiurl';
+import { ClipLoader } from 'react-spinners';
 
 const ProjectForm = ({ onClose, editProject = null }) => {
+  const [loading, setLoading] = useState(false);
   const [project, setProject] = useState(editProject || {
     title: '',
     description: '',
@@ -24,7 +26,7 @@ const ProjectForm = ({ onClose, editProject = null }) => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-
+  setLoading(true);
   const formData = new FormData();
   formData.append('title', project.title);
   formData.append('description', project.description);
@@ -50,6 +52,8 @@ const ProjectForm = ({ onClose, editProject = null }) => {
     onClose();
   } catch (error) {
     toast.error(error.response?.data?.message || 'Upload failed');
+  }finally{
+    setLoading(false);
   }
 };
 
@@ -185,11 +189,22 @@ const ProjectForm = ({ onClose, editProject = null }) => {
               Cancel
             </button>
             <button
-              type="submit"
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-            >
-              {editProject ? 'Save Changes' : 'Add Project'}
-            </button>
+  type="submit"
+  disabled={loading}
+  className={`px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+    loading ? 'bg-primary-400 cursor-not-allowed' : 'bg-primary-600 hover:bg-primary-700'
+  } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 flex items-center justify-center gap-2`}
+>
+  {loading ? (
+    <>
+      <ClipLoader color="#ffffff" size={16} /> {/* Spinner while loading */}
+      Processing...
+    </>
+  ) : (
+    editProject ? 'Save Changes' : 'Add Project'
+  )}
+</button>
+
           </div>
         </form>
       </motion.div>

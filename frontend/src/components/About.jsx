@@ -30,7 +30,7 @@ const About = () => {
                 <p>
                   I'm a passionate Full Stack Developer with a deep love for creating
                   elegant and efficient digital solutions. My journey in technology began with a curiosity
-                  about how things work, which led me to pursue a career in software development.
+                  about how things work, which led me to pursue a career in web development.
                 </p>
                 <p>
                   With experience in both frontend and backend development, I specialize in building

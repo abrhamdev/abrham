@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 
 const experiences = [
   {
-    title: 'Network & ICT Intern',
+    title: 'Network & ICT',
     company: 'University of Gondar',
-    period: 'June 2023 - September 2023',
+    period: 'July 2023 - October 2023',
     description: [
       'Assisted in managing and maintaining network infrastructure',
       'Developed internal tools for network monitoring and reporting',
@@ -12,22 +12,19 @@ const experiences = [
       'Implemented security best practices and protocols',
     ],
   },
-  // Add more experiences as needed
+  
 ];
 
 const education = [
   {
-    degree: 'Bachelor of Science in Computer Science',
-    institution: 'Your University',
-    period: '2020 - 2024',
+    degree: 'Computer Science',
+    institution: 'Gondar University',
+    period: '2022 - 2025',
     description: [
-      'Specialized in Software Engineering',
       'Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems',
-      'Final year project: ML-based Book Recommendation System',
-      'GPA: 3.8/4.0',
+      'GPA: N/A',
     ],
   },
-  // Add more education items as needed
 ];
 
 const Experience = () => {
