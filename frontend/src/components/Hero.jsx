@@ -52,7 +52,7 @@ const Hero = () => {
               href="https://github.com/abrhamdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-white bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-full text-gray-600 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
               aria-label="GitHub"
             >
               <GithubIcon className="w-6 h-6" />
@@ -61,14 +61,14 @@ const Hero = () => {
               href="https://www.linkedin.com/in/abrham-abebe-aa2042314"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-white bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-full text-gray-600 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-6 h-6" />
             </a>
             <a
               href="mailto:abrhamabebe564@gmail.com"
-              className="p-2 rounded-full text-white bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-full text-gray-600 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
               aria-label="Email"
             >
               <Mail className="w-6 h-6" />
