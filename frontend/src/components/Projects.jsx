@@ -92,7 +92,7 @@ const Projects = () => {
                       </span>
                     ))}
                   </div>
-                  <div className="px-2 mt-2 flex flex-wrap gap-2">
+                  <div className="py-2.5 mt-2 flex flex-wrap gap-2">
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
