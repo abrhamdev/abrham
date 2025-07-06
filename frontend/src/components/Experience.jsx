@@ -99,7 +99,7 @@ const Experience = () => {
                   className="relative pl-8 pb-8 border-l-2 border-gray-200 dark:border-gray-700 last:pb-0"
                 >
                   <div className="absolute left-[-9px] top-0 w-4 h-4 bg-primary-600 dark:bg-primary-400 rounded-full" />
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h4 className="text-xl font-semibold text-white">
                     {edu.degree}
                   </h4>
                   <p className="text-primary-600 dark:text-primary-400 font-medium">
