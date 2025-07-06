@@ -7,6 +7,9 @@ import Experience from "./Experience";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import Blog from "./Blog";  
+import GitHubActivity from "./GitHubActivity";
+import Timeline from "./Timeline";
+import Achievements from "./Achievements";
 
 const Home = ({ onTriggerAdmin }) => {
   return (
@@ -18,6 +21,7 @@ const Home = ({ onTriggerAdmin }) => {
         <Skills />
         <Projects />
         <Experience />
+        <GitHubActivity/>
         <Contact />
       </main>
       <Footer />

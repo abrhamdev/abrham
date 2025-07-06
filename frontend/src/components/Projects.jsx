@@ -172,6 +172,16 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
+                <div className="py-2.5 mt-2 flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
                 <div className="flex space-x-4">
                   <a
                     href={selectedProject.githubUrl}

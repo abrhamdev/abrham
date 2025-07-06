@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
+import { useEffect,useState } from 'react';
 import { FaGithub, FaStar, FaCodeBranch, FaCode } from 'react-icons/fa';
+import GitHubCalendar from 'react-github-calendar';
+import axios from 'axios';
 
 const repositories = [
   {
@@ -27,15 +30,29 @@ const repositories = [
     language: "JavaScript"
   }
 ];
-
-const contributionData = [
-  8, 12, 5, 9, 15, 7, 10, 13, 6, 11, 14, 8
-].map((value, index) => ({
-  date: new Date(2025, index, 1).toLocaleDateString('en-US', { month: 'short' }),
-  count: value
-}));
-
 const GitHubActivity = () => {
+  
+  const [repos, setRepos] = useState([]);
+  
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        const { data } = await axios.get('https://api.github.com/users/abrhamdev/repos');
+        // Sort by stars
+        const topRepos = data
+          .sort((a, b) => b.stargazers_count - a.stargazers_count)
+          .slice(0, 6); // Top 6 repos
+  
+        setRepos(topRepos);
+      } catch (error) {
+        console.error('Error fetching GitHub repos:', error);
+      }
+    };
+  
+    fetchRepos();
+  }, []);
+
+  
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
@@ -57,26 +74,42 @@ const GitHubActivity = () => {
             <h3 className="text-xl font-semibold mb-6 dark:text-white">
               Contribution Activity
             </h3>
-            <div className="flex items-end space-x-2 h-48">
-              {contributionData.map((data, index) => (
-                <div key={index} className="flex flex-col items-center flex-1">
-                  <motion.div
-                    initial={{ height: 0 }}
-                    whileInView={{ height: `${(data.count / 15) * 100}%` }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="w-full bg-green-500 rounded-t"
-                  />
-                  <span className="text-xs mt-2 text-gray-600 dark:text-gray-400 rotate-45">
-                    {data.date}
-                  </span>
-                </div>
-              ))}
+            <div className="overflow-x-auto text-white">
+              <GitHubCalendar
+                username="abrhamdev"
+                blockSize={15}
+                blockMargin={5}
+                fontSize={14}
+                colorScheme="dark"
+                theme={{
+                    light: ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127'],
+                    dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+                  }}
+              />
             </div>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-10">
+              <div className="shadow-lg rounded-lg overflow-hidden">
+                <img
+                  src="https://github-readme-stats.vercel.app/api?username=abrhamdev&show_icons=true&theme=tokyonight"
+                  alt="GitHub Stats"
+                  className="w-full md:w-[420px]"
+                />
+              </div>
+              
+              <div className="shadow-lg rounded-lg overflow-hidden">
+                <img
+                  src="https://github-readme-streak-stats.herokuapp.com?user=abrhamdev&theme=tokyonight"
+                  alt="GitHub Streak"
+                  className="w-full md:w-[420px]"
+                />
+              </div>
+            </div>
+
           </motion.div>
 
           {/* Top Repositories */}
           <div className="space-y-4">
-            {repositories.map((repo, index) => (
+            {repos.map((repo, index) => (
               <motion.div
                 key={repo.id}
                 initial={{ opacity: 0, x: 20 }}
@@ -88,20 +121,24 @@ const GitHubActivity = () => {
                   {repo.name}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  {repo.description}
+                  {repo.description || 'No description provided.'}
                 </p>
                 <div className="flex items-center space-x-6">
-                  <div className="flex items-center">
-                    <FaStar className="text-yellow-500 mr-2" />
-                    <span className="dark:text-gray-300">{repo.stars}</span>
-                  </div>
+                 {
+                   /*
+                   <div className="flex items-center">
+                     <FaStar className="text-yellow-500 mr-2" />
+                     <span className="dark:text-gray-300">{repo.stargazers_count}</span>
+                   </div>
+                   */
+                 }
                   <div className="flex items-center">
                     <FaCodeBranch className="text-gray-500 mr-2" />
-                    <span className="dark:text-gray-300">{repo.forks}</span>
+                    <span className="dark:text-gray-300">{repo.forks_count}</span>
                   </div>
                   <div className="flex items-center">
                     <FaCode className="text-blue-500 mr-2" />
-                    <span className="dark:text-gray-300">{repo.language}</span>
+                    <span className="dark:text-gray-300">{repo.language || 'N/A'}</span>
                   </div>
                 </div>
               </motion.div>
@@ -116,7 +153,7 @@ const GitHubActivity = () => {
           className="mt-8 text-center"
         >
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/abrhamdev"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"

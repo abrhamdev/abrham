@@ -4,8 +4,8 @@ import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 const timelineData = [
   {
     id: 5,
-    year: "2021",
-    title: "Bachelor's in Computer Science",
+    year: "2022",
+    title: "Entered in to Gondar University",
     company: "State University",
     description: "Graduated with honors, focused on software development",
     type: "education",
