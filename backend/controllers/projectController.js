@@ -28,6 +28,7 @@ export const insertProject=async(req,res)=>{
     await newProject.save();
     return res.status(201).json({ message: 'Project uploaded successfully' });
     }catch(error){
+       console.log(error);
       return res.status(400).json({message:'Server error while uploading project'});
     }
 }
