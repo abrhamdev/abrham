@@ -10,6 +10,7 @@ import Blog from "./Blog";
 import GitHubActivity from "./GitHubActivity";
 import Timeline from "./Timeline";
 import Achievements from "./Achievements";
+import InteractiveProjects from "./InteractiveDemo";
 
 const Home = ({ onTriggerAdmin }) => {
   return (
@@ -19,8 +20,10 @@ const Home = ({ onTriggerAdmin }) => {
         <Hero />
         <About />
         <Skills />
-        <Projects />
+        <InteractiveProjects/>
+        <Timeline/>
         <Experience />
+        <Projects />
         <GitHubActivity/>
         <Contact />
       </main>

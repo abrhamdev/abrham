@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { FaBell } from 'react-icons/fa';
 
-const AdminDashboard = ({ onLogout }) => {
+const AdminDashboard = ({ onLogout,setShowAdmin }) => {
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -98,6 +98,12 @@ const AdminDashboard = ({ onLogout }) => {
                 className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 Logout
+              </button>
+              <button
+                onClick={() => setShowAdmin(false)}
+                className="text-gray-400 hover:text-gray-500 focus:outline-none"
+              >
+                <span className="font-bold">Home</span>
               </button>
             </div>
           </div>
@@ -199,7 +205,7 @@ const AdminDashboard = ({ onLogout }) => {
                   className="text-gray-400 hover:text-gray-500 focus:outline-none"
                 >
                   <span className="sr-only">Close</span>
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -207,7 +213,7 @@ const AdminDashboard = ({ onLogout }) => {
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Notifications</h2>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm p-4 text-gray-500 dark:text-gray-400">
                     {messages.length} {messages.length === 1 ? 'message' : 'messages'}
                   </span>
                 </div>

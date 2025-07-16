@@ -38,7 +38,7 @@ const About = () => {
                   interested in modern web technologies and best practices in software development.
                 </p>
                 <p>
-                  During my internship at the University of Gondar in the Network & ICT Directorate,
+                  During my internship
                   I gained valuable experience in network infrastructure and system administration,
                   which complements my software development skills.
                 </p>

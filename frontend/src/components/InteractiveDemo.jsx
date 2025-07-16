@@ -1,102 +1,61 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, Reorder } from 'framer-motion';
 
-const InteractiveDemo = () => {
-  const [boxes, setBoxes] = useState([
-    { id: 1, color: '#FF0000', x: 0, y: 0 },
-    { id: 2, color: '#00FF00', x: 0, y: 0 },
-    { id: 3, color: '#0000FF', x: 0, y: 0 },
-  ]);
+const initialProjects = [
+  { id: 1, title: "NovaReads", description: "Book recommendation system using microservices & ML" },
+  { id: 2, title: "Dotube", description: "YouTube video downloader with playlist support" },
+  { id: 3, title: "Portfolio Website", description: "Personal website showcasing skills and projects" },
+  { id: 4, title: "Real-time Chat App", description: "MongoDB + Redis based group chat feature" }
+];
 
-  const [code, setCode] = useState(`// Try dragging the boxes!
-const moveBox = (id, x, y) => {
-  setBoxes(boxes.map(box => 
-    box.id === id 
-      ? { ...box, x, y }
-      : box
-  ));
-};`);
+const InteractiveProjects = () => {
+  const [projects, setProjects] = useState(() => {
+    const saved = localStorage.getItem('reordered-projects');
+    return saved ? JSON.parse(saved) : initialProjects;
+  });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3
-      }
-    }
-  };
+  useEffect(() => {
+    localStorage.setItem('reordered-projects', JSON.stringify(projects));
+  }, [projects]);
 
   return (
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 dark:text-white">
-          Interactive Demo
+        <h2 className="text-4xl font-bold text-center mb-8 dark:text-white">
+          Drag & Arrange My Projects
         </h2>
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+          A live demo of interactive UI design using React and Framer Motion. Try rearranging the cards below.
+        </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Demo Area */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="bg-gray-100 dark:bg-gray-800 rounded-lg p-8 min-h-[400px] relative"
-          >
-            {boxes.map((box) => (
-              <motion.div
-                key={box.id}
-                drag
-                dragMomentum={false}
-                dragConstraints={{
-                  top: 0,
-                  left: 0,
-                  right: 300,
-                  bottom: 300
-                }}
-                style={{
-                  backgroundColor: box.color,
-                  x: box.x,
-                  y: box.y
-                }}
-                className="w-16 h-16 rounded-lg cursor-move absolute"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onDragEnd={(_, info) => {
-                  const newBoxes = boxes.map((b) =>
-                    b.id === box.id
-                      ? { ...b, x: info.point.x, y: info.point.y }
-                      : b
-                  );
-                  setBoxes(newBoxes);
-                }}
-              />
-            ))}
-          </motion.div>
+        <Reorder.Group
+          as="div"
+          axis="y"
+          values={projects}
+          onReorder={setProjects}
+          className="space-y-4 max-w-2xl mx-auto"
+        >
+          {projects.map((project) => (
+            <Reorder.Item
+              key={project.id}
+              value={project}
+              whileDrag={{ scale: 1.03, boxShadow: '0 8px 16px rgba(0,0,0,0.15)' }}
+              className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md cursor-move"
+            >
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+                {project.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
+            </Reorder.Item>
+          ))}
+        </Reorder.Group>
 
-          {/* Code Display */}
-          <div className="bg-gray-900 rounded-lg p-6 text-white font-mono text-sm overflow-auto">
-            <pre>{code}</pre>
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="mt-8 flex justify-center space-x-4">
+        <div className="flex justify-center mt-8">
           <button
-            onClick={() => setBoxes(boxes.map(box => ({ ...box, x: 0, y: 0 })))}
+            onClick={() => setProjects(initialProjects)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
           >
-            Reset Position
-          </button>
-          <button
-            onClick={() => {
-              setBoxes(boxes.map(box => ({
-                ...box,
-                color: `#${Math.floor(Math.random()*16777215).toString(16)}`
-              })));
-            }}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg"
-          >
-            Random Colors
+            Reset Order
           </button>
         </div>
       </div>
@@ -104,4 +63,4 @@ const moveBox = (id, x, y) => {
   );
 };
 
-export default InteractiveDemo;
+export default InteractiveProjects;

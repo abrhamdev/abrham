@@ -52,7 +52,7 @@ function App() {
           </div>
         ) : (
           <div className="min-h-screen bg-white dark:bg-gray-900">
-            <AdminDashboard onLogout={handleLogout} />
+            <AdminDashboard onLogout={handleLogout} setShowAdmin={setShowAdmin} />
           </div>
         )
       ) : (

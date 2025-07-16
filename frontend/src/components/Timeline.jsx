@@ -4,45 +4,51 @@ import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
 const timelineData = [
   {
     id: 5,
-    year: "2022",
-    title: "Entered in to Gondar University",
-    company: "State University",
-    description: "Graduated with honors, focused on software development",
+    year: "2021",
+    title: "Joined Gondar University",
+    company: "BSc in Computer Science",
+    description:
+      "Started my academic journey with foundation courses in programming, applied mathematics, and civics.",
     type: "education",
   },
   {
     id: 4,
-    year: "2021 - 2023",
-    title: "Junior Developer",
-    company: "StartUp Hub",
-    description: "Worked on various web development projects using modern technologies",
-    type: "work",
+    year: "2022",
+    title: "Explored Web Development Basics",
+    company: "University Projects",
+    description:
+      "Completed courses in Computer Programming 2, Data Structures, OOP, and Discrete Mathematics. Built my first static website.",
+    type: "education",
   },
   {
     id: 3,
     year: "2023",
-    title: "Master's in Computer Science",
-    company: "Tech University",
-    description: "Specialized in Web Technologies and Software Engineering",
-    type: "education",
+    title: "Web Programming & Internship",
+    company: "StartUp Hub",
+    description:
+      "Took formal Web Programming, Software Engineering, and Java Programming. Interned as a Junior Web Developer working with HTML, CSS, JavaScript.",
+    type: "work",
   },
   {
     id: 2,
-    year: "2023 - 2024",
-    title: "Frontend Developer",
+    year: "2024",
+    title: "Advanced Web Development",
     company: "Digital Solutions Inc",
-    description: "Developed responsive web applications using React and Next.js",
+    description:
+      "Worked as a Frontend Developer using React. Learned about Operating Systems, Design & Analysis of Algorithms, and AI fundamentals.",
     type: "work",
   },
   {
     id: 1,
     year: "2025",
-    title: "Senior Frontend Developer",
-    company: "Tech Innovation Corp",
-    description: "Leading frontend development team and implementing modern web solutions",
-    type: "work",
+    title: "Graduated with BSc in Computer Science",
+    company: "Gondar University",
+    description:
+      "Completed courses like Compiler Design, Computer Security, Machine Learning, Distributed Systems, and Big Data. Specialized in Web Technologies.",
+    type: "education",
   },
 ];
+
 
 const Timeline = () => {
   return (
