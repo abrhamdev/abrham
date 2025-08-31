@@ -1,86 +1,180 @@
-/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
-import {GithubIcon, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-4 py-32 relative z-10">
         <div className="text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="mb-12"
           >
-            <div className="relative w-48 h-48 mx-auto mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full animate-pulse" />
-              <img
-                src="/abrham_hero.jpeg" 
-                alt="Abrham Abebe"
-                className="w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-lg relative z-10"
+            <div className="relative w-56 h-56 mx-auto mb-10">
+              <motion.div 
+                initial={{ opacity: 0, scale: 1.2 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="absolute inset-0 bg-gradient-to-r from-primary-500 to-purple-500 rounded-full animate-pulse-slow"
               />
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="relative z-10 w-full h-full"
+              >
+                <img
+                  src="/abrham_hero.jpeg"
+                  alt="Abrham Abebe - Full Stack Developer"
+                  className="w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-xl"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="absolute -bottom-2 -right-2 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg border border-gray-100 dark:border-gray-700"
+              >
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary-500 to-purple-500 flex items-center justify-center">
+                  <span className="text-xs font-bold text-white">AA</span>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="mb-6"
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 text-transparent bg-clip-text">
-              Hi, I'm Abrham
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 text-transparent bg-clip-text tracking-tight">
+              Abrham <span className="text-primary-600 dark:text-primary-400">Abebe</span>
             </h1>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="mb-10"
           >
-            <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
-              A passionate developer creating elegant digital experiences
+            <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 font-medium max-w-2xl mx-auto leading-relaxed">
+              Full Stack Developer specializing in modern web technologies and creating exceptional digital experiences
             </h2>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex justify-center space-x-4"
+            transition={{ duration: 0.7, delay: 0.7 }}
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16"
           >
-            <a
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('projects')}
+              className="px-8 py-3 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+            >
+              View My Work
+              <ChevronDown className="w-5 h-5" />
+            </motion.button>
+            
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="/abrham_cv.pdf"
+              download
+              className="px-8 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-medium border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+            >
+              Download CV
+              <Download className="w-5 h-5" />
+            </motion.a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.9 }}
+            className="flex justify-center space-x-6"
+          >
+            <motion.a
+              whileHover={{ y: -5, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href="https://github.com/abrhamdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-gray-600 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
               aria-label="GitHub"
             >
-              <GithubIcon className="w-6 h-6" />
-            </a>
-            <a
+              <Github className="w-6 h-6" />
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -5, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href="https://www.linkedin.com/in/abrham-abebe-aa2042314"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full text-gray-600 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-6 h-6" />
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -5, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href="mailto:abrhamabebe564@gmail.com"
-              className="p-2 rounded-full text-gray-600 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
               aria-label="Email"
             >
               <Mail className="w-6 h-6" />
-            </a>
+            </motion.a>
           </motion.div>
         </div>
       </div>
 
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-96 h-96 -top-48 -left-48 bg-primary-200/30 dark:bg-primary-900/30 rounded-full blur-3xl" />
-        <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-purple-200/30 dark:bg-purple-900/30 rounded-full blur-3xl" />
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="flex flex-col items-center text-gray-400 dark:text-gray-500"
+        >
+          <span className="text-sm mb-2">Scroll down</span>
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
+      </motion.div>
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden z-0">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="absolute w-80 h-80 -top-40 -left-40 bg-primary-200/20 dark:bg-primary-900/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="absolute w-80 h-80 -bottom-40 -right-40 bg-purple-200/20 dark:bg-purple-900/20 rounded-full blur-3xl"
+        />
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20"></div>
       </div>
     </section>
   );
