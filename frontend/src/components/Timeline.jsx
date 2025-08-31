@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa';
+import { useRef } from 'react';
 
 const timelineData = [
   {
@@ -35,7 +36,7 @@ const timelineData = [
     title: "Advanced Web Development",
     company: "Digital Solutions Inc",
     description:
-      "Worked as a Frontend Developer using React. Learned about Operating Systems, Design & Analysis of Algorithms, and AI fundamentals.",
+      "Worked as a Full Stack Developer using React. Learned about Operating Systems, Design & Analysis of Algorithms, and AI fundamentals.",
     type: "work",
   },
   {
@@ -49,58 +50,131 @@ const timelineData = [
   },
 ];
 
+const TimelineItem = ({ item, index, totalItems }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`relative flex items-center justify-between mb-12 ${
+        index % 2 === 0 ? 'flex-row-reverse' : ''
+      }`}
+    >
+      {/* Content Card */}
+      <div className="w-5/12">
+        <motion.div 
+          whileHover={{ y: -5 }}
+          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+        >
+          <span className="text-sm font-semibold text-gray-400 dark:text-gray-400 mb-2 block">
+            {item.year}
+          </span>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            {item.title}
+          </h3>
+          <p className="text-gray-400  dark:text-gray-400 font-medium mb-3">
+            {item.company}
+          </p>
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+            {item.description}
+          </p>
+          <div className={`mt-4 inline-block text-xs font-medium py-1 px-3 rounded-full ${
+            item.type === 'work' 
+              ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' 
+              : 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
+          }`}>
+            {item.type === 'work' ? 'Professional Experience' : 'Education'}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Icon */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center w-14 h-14 rounded-full shadow-lg z-10
+        bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-700
+        border-4 border-white dark:border-gray-800">
+        <motion.div 
+          animate={isInView ? { scale: [0.8, 1.1, 1] } : { scale: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className={`p-3 rounded-full ${
+            item.type === 'work' 
+              ? 'bg-gradient-to-br from-blue-500 to-blue-600' 
+              : 'bg-gradient-to-br from-purple-500 to-purple-600'
+          }`}
+        >
+          {item.type === 'work' ? (
+            <FaBriefcase className="text-white text-lg" />
+          ) : (
+            <FaGraduationCap className="text-white text-lg" />
+          )}
+        </motion.div>
+      </div>
+
+      {/* Year indicator on the opposite side */}
+      <div className="w-5/12">
+        <div className={`text-center ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>
+          <motion.span 
+            animate={isInView ? { opacity: 1, color: ["#999", "#3B82F6", "#999"] } : { opacity: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-4xl font-bold text-gray-300 dark:text-gray-600"
+          >
+            {item.year}
+          </motion.span>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Timeline = () => {
-  return (
-    <section className="py-16 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 dark:text-white">
-          My Journey
-        </h2>
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
 
-        <div className="relative">
+  return (
+    <section ref={sectionRef} className="py-24 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-5 text-gray-900 dark:text-white tracking-tight">
+            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-500">Journey</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto mb-6"></div>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            A timeline of my career and educational milestones
+          </p>
+        </motion.div>
+
+        <div className="relative max-w-5xl mx-auto">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200 dark:bg-gray-700" />
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary-400 via-primary-500 to-primary-400 dark:from-primary-600 dark:via-primary-500 dark:to-primary-600 opacity-80" />
 
           {timelineData.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative flex items-center justify-between mb-8 ${
-                index % 2 === 0 ? 'flex-row-reverse' : ''
-              }`}
-            >
-              {/* Content */}
-              <div className="w-5/12">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                  <span className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
-                    {item.year}
-                  </span>
-                  <h3 className="text-xl font-bold mt-2 dark:text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mt-1">
-                    {item.company}
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-300 mt-2">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Icon */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-500 shadow-lg">
-                {item.type === 'work' ? (
-                  <FaBriefcase className="text-white text-xl" />
-                ) : (
-                  <FaGraduationCap className="text-white text-xl" />
-                )}
-              </div>
-            </motion.div>
+            <TimelineItem 
+              key={item.id} 
+              item={item} 
+              index={index} 
+              totalItems={timelineData.length} 
+            />
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
+        >
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
+            Continuously growing and adapting to new challenges
+          </p>
+        </motion.div>
       </div>
     </section>
   );
