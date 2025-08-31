@@ -83,8 +83,8 @@ const Navbar = ({ onTriggerAdmin }) => {
                   whileTap={{ y: 0 }}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
                     activeSection === item.id
-                      ? 'text-primary-600 dark:text-primary-400'
-                      : 'text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400'
+                      ? 'text-gray-600 dark:text-gray-600'
+                      : 'text-gray-600 hover:text-gray-400 cursor-pointer dark:text-gray-300 dark:hover:text-gray-400'
                   }`}
                 >
                   {item.label}
