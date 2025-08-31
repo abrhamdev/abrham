@@ -68,7 +68,7 @@ const Navbar = ({ onTriggerAdmin }) => {
                 }
                 setLastClickTime(currentTime);
               }}
-              className="text-2xl bg-gradient-to-r from-gray-800 to-purple-600 bg-clip-text text-transparent"
+              className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent"
             >
               Abrham
             </motion.button>
@@ -83,8 +83,8 @@ const Navbar = ({ onTriggerAdmin }) => {
                   whileTap={{ y: 0 }}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
                     activeSection === item.id
-                      ? 'text-gray-600 dark:text-gray-600'
-                      : 'text-gray-600 hover:text-gray-400 cursor-pointer dark:text-gray-300 dark:hover:text-gray-400'
+                      ? 'text-primary-600 dark:text-primary-400'
+                      : 'text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400'
                   }`}
                 >
                   {item.label}
@@ -109,7 +109,7 @@ const Navbar = ({ onTriggerAdmin }) => {
               </motion.button>
             </div>
 
-            {/* Mobile Navigation */}
+            {/* Mobile Navigation Toggle */}
             <div className="md:hidden flex items-center">
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -132,33 +132,46 @@ const Navbar = ({ onTriggerAdmin }) => {
             </div>
           </div>
 
-          {/* Mobile Menu with Animation */}
+          {/* Mobile Menu with Animation and Backdrop */}
           <AnimatePresence>
             {isMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
-                className="md:hidden overflow-hidden"
-              >
-                <div className="py-4 border-t border-gray-200 dark:border-gray-800">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item.label}
-                      onClick={() => scrollToSection(item.id)}
-                      whileHover={{ x: 5 }}
-                      className={`w-full text-left py-3 px-4 rounded-md text-sm font-medium transition-colors ${
-                        activeSection === item.id
-                          ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                          : 'text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400'
-                      }`}
-                    >
-                      {item.label}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
+              <>
+                {/* Backdrop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40 md:hidden"
+                  onClick={() => setIsMenuOpen(false)}
+                />
+                
+                {/* Mobile Menu */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="md:hidden absolute left-0 right-0 bg-white dark:bg-gray-900 shadow-xl border-b border-gray-200 dark:border-gray-800 z-50"
+                >
+                  <div className="py-4 px-4">
+                    {navItems.map((item) => (
+                      <motion.button
+                        key={item.label}
+                        onClick={() => scrollToSection(item.id)}
+                        whileHover={{ x: 5 }}
+                        className={`w-full text-left py-3 px-4 rounded-md text-sm font-medium transition-colors ${
+                          activeSection === item.id
+                            ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                            : 'text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400'
+                        }`}
+                      >
+                        {item.label}
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+              </>
             )}
           </AnimatePresence>
         </div>
