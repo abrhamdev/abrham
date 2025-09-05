@@ -68,7 +68,7 @@ const Experience = () => {
                   <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
                     {exp.title}
                   </h4>
-                  <p className="text-gray-600 dark:text-primary-400 font-medium">
+                  <p className="text-gray-300 dark:text-gray-300 font-medium">
                     {exp.company}
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{exp.period}</p>
@@ -102,7 +102,7 @@ const Experience = () => {
                   <h4 className="text-xl font-semibold text-white">
                     {edu.degree}
                   </h4>
-                  <p className="text-gray-600 dark:text-primary-400 font-medium">
+                  <p className="text-gray-300 dark:text-primary-300 font-medium">
                     {edu.institution}
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{edu.period}</p>
