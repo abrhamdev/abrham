@@ -70,13 +70,13 @@ const TimelineItem = ({ item, index, totalItems }) => {
           whileHover={{ y: -5 }}
           className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
         >
-          <span className="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-2 block">
+          <span className="text-sm font-semibold text-gray-300 dark:text-gray-300 mb-2 block">
             {item.year}
           </span>
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
             {item.title}
           </h3>
-          <p className="text-primary-600 dark:text-primary-400 font-medium mb-3">
+          <p className="text-gray-300 dark:text-gray-300 font-medium mb-3">
             {item.company}
           </p>
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
