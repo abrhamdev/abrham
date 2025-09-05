@@ -32,6 +32,21 @@ const skillCategories = [
     ],
   },
   {
+    title: 'Networking & Systems',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+      </svg>
+    ),
+    skills: [
+      { name: 'TCP/IP Networking', level: 75 },
+      { name: 'IP Addressing & Subnetting', level: 80 },
+      { name: 'DNS Configuration', level: 65 },
+      { name: 'Router & Switch Configuration', level: 60 },
+      { name: 'Network Troubleshooting', level: 75 },
+    ],
+  },
+  {
     title: 'DevOps & Tools',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
