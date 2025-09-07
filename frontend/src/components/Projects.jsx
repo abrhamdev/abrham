@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { GithubIcon, ExternalLink, X } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 import { API_URL } from "../../apiurl";
 
 const Projects = () => {
@@ -52,7 +52,7 @@ const Projects = () => {
         {/* Spinner while loading */}
         {loading ? (
           <div className="flex justify-center items-center min-h-[200px]">
-            <ClipLoader color="#4f46e5" size={50} />
+            <BeatLoader color="#4f46e5" size={10} />
           </div>
         ) : projects?.length > 0 ?  (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
