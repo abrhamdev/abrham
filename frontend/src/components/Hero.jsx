@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, ChevronDown } from 'lucide-react';
+import { ThemeContext } from '../contexts/theme';
+import { useContext } from 'react';
 
 const Hero = () => {
+  const { theme } = useContext(ThemeContext);
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -10,7 +13,10 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section id="home" className={`min-h-screen flex items-center justify-center relative overflow-hidden ${theme === 'light' 
+      ? 'bg-gradient-to-br from-gray-50 via-white to-gray-100' 
+      : 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'}`}>
+      
       <div className="container mx-auto px-4 py-32 relative z-10">
         <div className="text-center">
           <motion.div
@@ -34,14 +40,16 @@ const Hero = () => {
                 <img
                   src="/abrham_hero.jpeg"
                   alt="Abrham Abebe - Full Stack Developer"
-                  className="w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-xl"
+                  className={`w-full h-full object-cover rounded-full border-4 shadow-xl ${theme === 'light' ? 'border-white' : 'border-gray-800'}`}
                 />
               </motion.div>
               <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
-                className="absolute -bottom-2 -right-2 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg border border-gray-100 dark:border-gray-700"
+                className={`absolute -bottom-2 -right-2 rounded-full p-2 shadow-lg border ${theme === 'light' 
+                  ? 'bg-white border-gray-100' 
+                  : 'bg-gray-800 border-gray-700'}`}
               >
                 <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary-500 to-purple-500 flex items-center justify-center">
                   <span className="text-xs font-bold text-white">AA</span>
@@ -56,8 +64,10 @@ const Hero = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mb-6"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 text-transparent bg-clip-text tracking-tight">
-              Abrham <span className="text-primary-600 dark:text-primary-400">Abebe</span>
+            <h1 className={`text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r text-transparent bg-clip-text tracking-tight ${theme === 'light' 
+              ? 'from-gray-800 to-gray-600' 
+              : 'from-gray-100 to-gray-300'}`}>
+              Abrham <span className={theme === 'light' ? 'text-primary-600' : 'text-primary-400'}>Abebe</span>
             </h1>
           </motion.div>
 
@@ -67,7 +77,9 @@ const Hero = () => {
             transition={{ duration: 0.7, delay: 0.5 }}
             className="mb-10"
           >
-            <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 font-medium max-w-2xl mx-auto leading-relaxed">
+            <h2 className={`text-xl md:text-2xl mb-8 font-medium max-w-2xl mx-auto leading-relaxed ${theme === 'light' 
+              ? 'text-gray-600' 
+              : 'text-gray-300'}`}>
               Full Stack Developer specializing in modern web technologies and creating exceptional digital experiences, with additional familiarity in networking fundamentals
             </h2>
           </motion.div>
@@ -93,7 +105,9 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
               href="/abrham_cv.pdf"
               download
-              className="px-8 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-medium border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+              className={`px-8 py-3 rounded-lg font-medium border shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 ${theme === 'light' 
+                ? 'bg-white text-gray-800 border-gray-200' 
+                : 'bg-gray-800 text-gray-200 border-gray-700'}`}
             >
               Download CV
               <Download className="w-5 h-5" />
@@ -112,7 +126,9 @@ const Hero = () => {
               href="https://github.com/abrhamdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              className={`p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border ${theme === 'light' 
+                ? 'bg-white text-gray-700 border-gray-100' 
+                : 'bg-gray-800 text-gray-300 border-gray-700'}`}
               aria-label="GitHub"
             >
               <Github className="w-6 h-6" />
@@ -123,7 +139,9 @@ const Hero = () => {
               href="https://www.linkedin.com/in/abrham-abebe-aa2042314"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              className={`p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border ${theme === 'light' 
+                ? 'bg-white text-gray-700 border-gray-100' 
+                : 'bg-gray-800 text-gray-300 border-gray-700'}`}
               aria-label="LinkedIn"
             >
               <Linkedin className="w-6 h-6" />
@@ -132,7 +150,9 @@ const Hero = () => {
               whileHover={{ y: -5, scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               href="mailto:abrhamabebe564@gmail.com"
-              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              className={`p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border ${theme === 'light' 
+                ? 'bg-white text-gray-700 border-gray-100' 
+                : 'bg-gray-800 text-gray-300 border-gray-700'}`}
               aria-label="Email"
             >
               <Mail className="w-6 h-6" />
@@ -143,7 +163,9 @@ const Hero = () => {
               href="https://www.upwork.com/freelancers/~019a094faab9c466ea"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              className={`p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border ${theme === 'light' 
+                ? 'bg-white text-gray-700 border-gray-100' 
+                : 'bg-gray-800 text-gray-300 border-gray-700'}`}
               aria-label="Upwork Profile"
             >
               <svg className="w-6 h-6" viewBox="0 0 32 32" fill="currentColor">
@@ -164,9 +186,9 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center text-gray-400 dark:text-gray-500"
+          className={`flex flex-col items-center text-sm mb-2 ${theme === 'light' ? 'text-gray-400' : 'text-gray-500'}`}
         >
-          <span className="text-sm mb-2">Scroll down</span>
+          <span className="mb-2">Scroll down</span>
           <ChevronDown className="w-5 h-5" />
         </motion.div>
       </motion.div>
@@ -177,17 +199,23 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="absolute w-80 h-80 -top-40 -left-40 bg-primary-200/20 dark:bg-primary-900/20 rounded-full blur-3xl"
+          className={`absolute w-80 h-80 -top-40 -left-40 rounded-full blur-3xl ${theme === 'light' 
+            ? 'bg-primary-200/20' 
+            : 'bg-primary-900/20'}`}
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="absolute w-80 h-80 -bottom-40 -right-40 bg-purple-200/20 dark:bg-purple-900/20 rounded-full blur-3xl"
+          className={`absolute w-80 h-80 -bottom-40 -right-40 rounded-full blur-3xl ${theme === 'light' 
+            ? 'bg-purple-200/20' 
+            : 'bg-purple-900/20'}`}
         />
         
         {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-20"></div>
+        <div className={`absolute inset-0 opacity-20 ${theme === 'light' 
+          ? 'bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)]' 
+          : 'bg-[linear-gradient(to_right,#80808020_1px,transparent_1px),linear-gradient(to_bottom,#80808020_1px,transparent_1px)]'} bg-[size:24px_24px]`}></div>
       </div>
     </section>
   );

@@ -1,8 +1,15 @@
 import { motion } from 'framer-motion';
+import { ThemeContext } from '../contexts/theme';
+import { useContext } from 'react';
 
 const About = () => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <section id="about" className="py-24 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+    <section id="about" className={`py-24 ${theme === 'light' 
+      ? 'bg-gradient-to-br from-gray-50 to-gray-100' 
+      : 'bg-gradient-to-br from-gray-800 to-gray-900'}`}>
+      
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,12 +46,17 @@ const About = () => {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl font-bold mb-10 text-gray-900 dark:text-white tracking-tight"
+                className={`text-4xl md:text-5xl font-bold mb-10 tracking-tight ${theme === 'light' 
+                  ? 'text-gray-900' 
+                  : 'text-white'}`}
               >
                 About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600">Me</span>
               </motion.h2>
               
-              <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+              <div className={`space-y-6 leading-relaxed ${theme === 'light' 
+                ? 'text-gray-700' 
+                : 'text-gray-300'}`}>
+                
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}

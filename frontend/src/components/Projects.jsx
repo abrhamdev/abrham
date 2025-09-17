@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { GithubIcon, ExternalLink, X } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import BeatLoader from "react-spinners/BeatLoader";
 import { API_URL } from "../../apiurl";
+import { ThemeContext } from '../contexts/theme';
 
 const Projects = () => {
+  const { theme } = useContext(ThemeContext);
   const [projects, setProjects] = useState();
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -30,7 +32,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="section-padding bg-gray-50 dark:bg-gray-800 min-h-[70vh]"
+      className={`section-padding min-h-[70vh] ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-800'}`}
     >
       <div className="container">
         <motion.div
@@ -40,10 +42,10 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             Featured Projects
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className={`max-w-2xl mx-auto ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
             Here are some of my recent projects that showcase my skills and
             experience
           </p>
@@ -63,10 +65,10 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden"
+                className={`rounded-lg shadow-lg overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}
               >
                 <div
-                  className="h-60 bg-gray-200 dark:bg-gray-700 cursor-pointer"
+                  className={`h-60 cursor-pointer ${theme === 'light' ? 'bg-gray-200' : 'bg-gray-700'}`}
                   onClick={() => setSelectedProject(project)}
                 >
                   <img
@@ -76,17 +78,19 @@ const Projects = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                  <h3 className={`text-xl font-semibold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  <p className={`mb-4 ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {(project.tags || []).map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full"
+                        className={`px-3 py-1 text-sm rounded-full ${theme === 'light' 
+                          ? 'bg-gray-100 text-gray-700' 
+                          : 'bg-gray-800 text-gray-300'}`}
                       >
                         {tag}
                       </span>
@@ -96,7 +100,9 @@ const Projects = () => {
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${theme === 'light' 
+                          ? 'bg-blue-100 text-blue-800' 
+                          : 'bg-blue-900 text-blue-200'}`}
                       >
                         {tech}
                       </span>
@@ -107,7 +113,9 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                      className={`flex items-center hover:text-primary-600 ${theme === 'light' 
+                        ? 'text-gray-600 hover:text-primary-600' 
+                        : 'text-gray-300 hover:text-primary-400'}`}
                     >
                       <GithubIcon className="w-5 h-5 mr-1" />
                       Code
@@ -116,7 +124,9 @@ const Projects = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center cursor-pointer text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                      className={`flex items-center cursor-pointer hover:text-primary-600 ${theme === 'light' 
+                        ? 'text-gray-600 hover:text-primary-600' 
+                        : 'text-gray-300 hover:text-primary-400'}`}
                     >
                       <ExternalLink className="w-5 h-5 mr-1" />
                       Demo
@@ -127,9 +137,9 @@ const Projects = () => {
             ))}
           </div>
         ) : (
-            <div className="col-span-full text-center text-gray-600 dark:text-gray-300 mt-12">
+            <div className={`col-span-full text-center mt-12 ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
               <p className="text-lg">No projects found.</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Please check back later.</p>
+              <p className={`text-sm ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>Please check back later.</p>
             </div>
           )}
       </div>
@@ -141,12 +151,14 @@ const Projects = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className={`rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}
           >
             <div className="relative">
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                className={`absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 ${theme === 'light' 
+                  ? 'bg-gray-100 text-gray-600 hover:bg-gray-200' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'}`}
               >
                 <X className="w-6 h-6" />
               </button>
@@ -156,17 +168,19 @@ const Projects = () => {
                 className="w-full h-80 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+                <h3 className={`text-2xl font-semibold mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   {selectedProject.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                <p className={`mb-6 ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
                   {selectedProject.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {(selectedProject.tags || []).map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full"
+                      className={`px-3 py-1 text-sm rounded-full ${theme === 'light' 
+                        ? 'bg-gray-100 text-gray-700' 
+                        : 'bg-gray-800 text-gray-300'}`}
                     >
                       {tag}
                     </span>
@@ -176,7 +190,9 @@ const Projects = () => {
                   {selectedProject.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${theme === 'light' 
+                        ? 'bg-blue-100 text-blue-800' 
+                        : 'bg-blue-900 text-blue-200'}`}
                     >
                       {tech}
                     </span>
@@ -187,7 +203,9 @@ const Projects = () => {
                     href={selectedProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                    className={`flex items-center hover:text-primary-600 ${theme === 'light' 
+                      ? 'text-gray-600 hover:text-primary-600' 
+                      : 'text-gray-300 hover:text-primary-400'}`}
                   >
                     <GithubIcon className="w-5 h-5 mr-1" />
                     View Code
@@ -196,7 +214,9 @@ const Projects = () => {
                     href={selectedProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                    className={`flex items-center hover:text-primary-600 ${theme === 'light' 
+                      ? 'text-gray-600 hover:text-primary-600' 
+                      : 'text-gray-300 hover:text-primary-400'}`}
                   >
                     <ExternalLink className="w-5 h-5 mr-1" />
                     Live Demo

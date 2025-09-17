@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
+import { ThemeContext } from '../contexts/theme';
 
 const skillCategories = [
   {
@@ -60,25 +61,28 @@ const skillCategories = [
 ];
 
 const SkillBar = ({ skill, delay }) => {
+  const { theme } = useContext(ThemeContext);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
   
   return (
     <div key={skill.name} className="relative" ref={ref}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-gray-700 dark:text-gray-300 font-medium text-sm tracking-wide">
+        <span className={`font-medium text-sm tracking-wide ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
           {skill.name}
         </span>
         <motion.span 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.4, delay: delay + 0.5 }}
-          className="text-gray-300 dark:text-gray-300 font-semibold text-xs bg-primary-50 dark:bg-primary-900/30 px-2 py-1 rounded-full"
+          className={`font-semibold text-xs px-2 py-1 rounded-full ${theme === 'light' 
+            ? 'text-gray-300 bg-primary-50' 
+            : 'text-gray-300 bg-primary-900/30'}`}
         >
           {skill.level}%
         </motion.span>
       </div>
-      <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
+      <div className={`w-full rounded-full h-2.5 overflow-hidden ${theme === 'light' ? 'bg-gray-100' : 'bg-gray-700'}`}>
         <motion.div
           initial={{ width: 0 }}
           animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
@@ -98,6 +102,7 @@ const SkillBar = ({ skill, delay }) => {
 };
 
 const SkillCategory = ({ category, index }) => {
+  const { theme } = useContext(ThemeContext);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
   
@@ -112,19 +117,24 @@ const SkillCategory = ({ category, index }) => {
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
       
-      <div className="relative bg-white dark:bg-gray-800 p-7 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 group-hover:shadow-xl transition-all duration-300 h-full">
+      <div className={`relative p-7 rounded-2xl shadow-lg border group-hover:shadow-xl transition-all duration-300 h-full ${theme === 'light' 
+        ? 'bg-white border-gray-100' 
+        : 'bg-gray-800 border-gray-700'}`}>
+        
         <div className="flex items-center mb-6">
           <motion.div 
             initial={{ scale: 0.8, rotate: -10 }}
             animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0.8, rotate: -10 }}
             transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
-            className="p-3 bg-gradient-to-br from-primary-100 to-primary-50 dark:from-primary-900/30 dark:to-primary-800/20 rounded-lg mr-4"
+            className={`p-3 rounded-lg mr-4 ${theme === 'light' 
+              ? 'bg-gradient-to-br from-primary-100 to-primary-50' 
+              : 'bg-gradient-to-br from-primary-900/30 to-primary-800/20'}`}
           >
-            <div className="text-gray-300 dark:text-gray-300">
+            <div className={theme === 'light' ? 'text-gray-300' : 'text-gray-300'}>
               {category.icon}
             </div>
           </motion.div>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h3 className={`text-xl font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             {category.title}
           </h3>
         </div>
@@ -144,11 +154,18 @@ const SkillCategory = ({ category, index }) => {
 };
 
 const Skills = () => {
+  const { theme } = useContext(ThemeContext);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
   
   return (
-    <section id="skills" ref={ref} className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section 
+      id="skills" 
+      ref={ref} 
+      className={`py-24 ${theme === 'light' 
+        ? 'bg-gradient-to-br from-gray-50 via-white to-gray-100' 
+        : 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'}`}
+    >
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -156,11 +173,11 @@ const Skills = () => {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-5 text-gray-900 dark:text-white tracking-tight">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-5 tracking-tight ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600">Expertise</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-purple-500 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
             A comprehensive overview of my technical skills and proficiency levels across different domains
           </p>
         </motion.div>
@@ -179,9 +196,9 @@ const Skills = () => {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
+          className={`text-center mt-16 pt-8 border-t ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'}`}
         >
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
+          <p className={`text-sm ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
             Continuously expanding my skill set through projects and ongoing learning
           </p>
         </motion.div>

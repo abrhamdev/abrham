@@ -4,6 +4,7 @@ import Login from './components/admin/Login';
 import AdminDashboard from './components/admin/AdminDashboard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { ThemeProvider } from './contexts/theme';
 
 // Custom hook to manage admin state
 const useAdminState = () => {
@@ -56,7 +57,9 @@ function App() {
           </div>
         )
       ) : (
-        <Home onTriggerAdmin={() => setShowAdmin(true)} />
+        <ThemeProvider>
+         <Home onTriggerAdmin={() => setShowAdmin(true)} />
+        </ThemeProvider>
       )}
     </>
   );

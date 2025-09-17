@@ -1,21 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeContext } from '../contexts/theme';
+import { useContext } from 'react';
+
 
 const Navbar = ({ onTriggerAdmin }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [lastClickTime, setLastClickTime] = useState(0);
   const [activeSection, setActiveSection] = useState('');
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   // Function to handle smooth scrolling to sections
   const scrollToSection = (sectionId) => {
@@ -48,7 +43,7 @@ const Navbar = ({ onTriggerAdmin }) => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg border-b border-gray-200 dark:border-gray-800">
+      <nav className={`fixed top-0 left-0 right-0 z-50 ${theme==='light'? 'bg-white/90' :'bg-gray-900/90 border-gray-800'} backdrop-blur-sm shadow-lg border-b border-gray-200 `}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <motion.button 
@@ -81,10 +76,10 @@ const Navbar = ({ onTriggerAdmin }) => {
                   onClick={() => scrollToSection(item.id)}
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
+                  className={`px-3 cursor-pointer py-2 rounded-md text-sm font-medium transition-colors relative ${
                     activeSection === item.id
-                      ? 'text-primary-600 dark:text-primary-400'
-                      : 'text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400'
+                      ? `${theme==='light'? 'text-gray-400':'text-gray-600'}`
+                      : `${theme==='light'? 'text-dark hover:text-gray-400 ' :'text-gray-200 hover:text-gray-400'}`
                   }`}
                 >
                   {item.label}
@@ -100,12 +95,12 @@ const Navbar = ({ onTriggerAdmin }) => {
               ))}
               <motion.button
                 whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                whileTap={{ scale: 0.99 }}
+                onClick={toggleTheme}
+                className="p-2 rounded-lg transition-colors cursor-pointer"
                 aria-label="Toggle dark mode"
               >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                {theme === "dark" ? <Sun className="w-4 h-4 text-white hover:text-gray-400" /> : <Moon className="text-black hover:text-gray-400 w-4 h-4" />}
               </motion.button>
             </div>
 
@@ -114,11 +109,11 @@ const Navbar = ({ onTriggerAdmin }) => {
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleTheme}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors mr-2"
                 aria-label="Toggle dark mode"
               >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.1 }}
